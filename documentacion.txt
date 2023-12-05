@@ -1,0 +1,165 @@
+Pasos para usar app /blog/
+
+03- Rutas en Laravel ....
+
+1- Revisar rutas /routes/web.php
+2- La lógica de programación va en el controlador
+
+archivo /routes/web.php
+
+Route::get('/', function () {
+    // return view('welcome');
+    return "Hola Amigos";
+});
+
+Route::get('cursos', function(){
+    return "Bienvenido a la página cursos";
+});
+
+Route::get('cursos/create', function(){
+    return "En esta página podrás crear un curso";
+});
+
+// Route::get('cursos/{curso}', function($curso){
+//     return "Bienvenido al curso de $curso";
+// });
+
+Route::get('cursos/{curso}/{categoria?}', function($curso, $categoria = null){
+
+    //categoria? = el signo de interrogación significa de que no es obligatorio poner esta variable en la url. En la función anónima se debe declarar $categoria = null, ya que en el caso de no ingresar un valor, este queda null.
+
+    if( $categoria ) {
+        return "Bienvenido al curso de $curso, de la categoría $categoria";
+    } else {
+        return "Bienvenido al curso de $curso";
+    }
+    
+});
+
+
+04- Controladores en Laravel ....
+
+Laravel se basa en el patrón de diseño MVC (Modelo Vista Controlador).
+
+User -> Consulta al $Controlador -> $Controlador consulta al -> $Modelo -> Este consulta a la base de datos, $Modelo recibo la información, y este se la vuelve a entregar al $Controlador, $Controlador envía los datos a la $Vista -> $Vista muestra los datos al User.
+
+> php artisan make:controller HomeController
+
+
+web.php
+
+Route::get('/', HomeController::class );
+
+Route::get('cursos', [CursoController::class, 'index'] );
+
+// Route::get('cursos', 'CursoController@index' ); // Así se definían los controladores y rutas en laravel 7 para abajo
+
+Route::get('cursos/create', [CursoController::class, 'create'] );
+
+Route::get('cursos/{curso}', [CursoController::class, 'show'] );
+
+
+05 - Grupos de rutas (Route Groups) ...
+
+web.php
+
+Route::get('/', HomeController::class );
+
+
+Route::controller(CursoController::class)->group(function(){
+    Route::get('cursos', 'index');
+    Route::get('cursos/create', 'create');
+    Route::get('cursos/{curso}', 'show');
+});
+
+
+06 - Vistas en Laravel
+
+Usamos Blade, a todas las vistas le pusimos .blade.php
+
+
+07 - Introducción al manejo de base de datos con Laravel
+
+- Prender xampp u otro
+- Crear database en localhost/phpmyadmin
+- Especificar a laravel que vamos trabajar con MySQL .env, ( /config/database.php no se modifica por seguridad).
+
+
+08 - Introducción a las migraciones.
+
+// migra los archivos de migración desde /database/migrations/
+> php artisan migrate
+
+
+09 - Cómo crear migraciones en Laravel
+
+// crea tu propia migración
+> php artisan make:migration cursos
+
+// método up() migra, y down() revierte el proceso.
+
+// rollback de tu migración
+> php artisan migrate:rollback
+
+// crear migración con convesión
+> php aritsan make:migration create_cursos_table
+
+// eliminar todas las tablas, usar con precaución (no usar en producción)
+> php artisan migrate:fresh
+
+
+10 - Cómo modificar tablas con las migraciones de Laravel
+
+// elimina las tablas uno a uno, después migra nuevamente
+// utiliza método down() y después up()
+> php artisan migrate:refresh
+
+// crea una migración nueva para una tabla (migración ya creada)
+// ejemplo, acá queremos agregar el avatar a la tabla users (creada anteriormente).
+> php artisan make:migration add_avatar_to_users_table
+
+// Con esto vamos a cambiar el valor del campo 'name' a 150 caracteres.
+> php artisan make:migration cambiar_propiedades_to_users_table
+
+Schema::table('users', function (Blueprint $table) {
+    $table->string('name', 150)->nullable->change(); // anteriormente tenía 255
+});
+
+
+11 - Introducción a eloquent
+
+Primero que todo debemos crear un modelo,
+con convensión.
+
+Eloquent detecta la "s" si queremos trabajar con convensiones.
+Ejemplo: Category (model) // categories (table)
+
+// creamos un modelo Curso para administrar la tabla cursos
+// ocupar singular en comparación con el nombre de la table
+// ya que por el inglés quita la última "s" para realizar la asociación y convensión
+> php artisan make:model Curso 
+
+// Utilizamos Tinker
+// nos sirve para crear objetos de datos
+> php artisan tinker
+
+// Utilizamos un namespace
+> use App\Models\Curso;
+// instanciamos la clase curso en un objeto
+> $curso = new Curso;
+// poblamos los campos
+> $curso->name = 'Laravel';
+> $curso->descripcion = 'El mejor framework de PHP';
+// guardamos el registro
+> $curso->save();
+// imprime para comprobar
+> $curso;
+
+// Ejemplo si quisieramos administrar la tabla users
+// con la clase Curso.php
+class Curso extends Model
+{
+    use HasFactory;
+
+    protected $table = "Users";
+}
