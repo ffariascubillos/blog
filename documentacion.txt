@@ -163,3 +163,43 @@ class Curso extends Model
 
     protected $table = "Users";
 }
+
+12. Seeders en Laravel ¿Qué son y para que sirven?
+
+Los seeders te permiten definir datos de prueba en código y ejecutarlos de manera automatizada, lo que facilita el proceso de llenado de datos en la base de datos. En este capítulo, te enseñaremos cómo crear y ejecutar seeders en Laravel, cómo definir datos de prueba y cómo utilizar las relaciones Eloquent para crear datos de prueba relacionados. Además, conocerás cómo utilizar las clases Factory en Laravel para crear datos aleatorios y cómo utilizar el comando "db:seed" para ejecutar tus seeders. Con estos conocimientos, podrás llenar la base de datos con datos de prueba de manera fácil y automatizada en tus aplicaciones Laravel.
+
+public function run(): void
+{
+    $curso = new Curso();
+
+    $curso->name = 'Laravel';
+    $curso->descripcion = 'El mejor frame de PHP';
+    $curso->categoria = 'Desarrollo web';
+    
+    $curso->save();
+}
+
+// llena con registro que has solicitado dentro del seeder
+> php artisan db:seed
+
+// crea un nuevo seeder
+> php artisan make:seeder CursoSeeder
+
+// combina los 2 comandos para hacerla corta 
+> php artisan migrate:fresh --seed
+
+
+13. Factories en Laravel ¿Qué son y para que sirven?
+
+Las factories te permiten definir patrones para generar datos aleatorios y luego utilizarlos para llenar la base de datos con datos de prueba de manera automatizada. En este capítulo, te enseñaremos cómo crear y utilizar factories en Laravel, cómo definir los campos de las tablas y cómo utilizar las relaciones Eloquent para crear datos de prueba relacionados. Además, conocerás cómo utilizar las factories para generar datos de prueba en formato JSON, cómo utilizar los traits para crear datos aleatorios y cómo utilizar las factories para realizar pruebas automatizadas en Laravel. Con estos conocimientos, podrás generar datos de prueba de manera efectiva y automatizada en tus aplicaciones Laravel utilizando factories.
+
+// Crea un nuevo Factory
+
+> php artisan make:factory CursoFactory
+> php artisan make:factory CursoFactory --model=Curso
+
+
+16. Cómo listar y leer registros en Laravel
+
+La lectura y listado de registros es una tarea fundamental en el desarrollo de aplicaciones web. En el decimocuarto capítulo del curso "Laravel desde cero", aprenderás a listar y leer registros en Laravel utilizando la función all, find, findOrFail y where. La función all te permite recuperar todos los registros de una tabla, mientras que la función find te permite recuperar un registro específico en función de su ID. La función findOrFail te permite recuperar un registro específico en función de su ID, pero lanzará una excepción si no se encuentra el registro. La función where te permite recuperar un conjunto de registros que cumplen una determinada condición. Además, en este capítulo, también aprenderás a utilizar la paginación para listar registros de manera eficiente y cómo realizar búsquedas utilizando la función where en combinación con la paginación. Con estos conocimientos, podrás listar y leer registros de manera efectiva y eficiente en tus aplicaciones Laravel.
+
