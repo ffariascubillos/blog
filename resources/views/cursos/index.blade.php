@@ -3,10 +3,17 @@
 @section('title', 'Cursos')
 
 @section('content')
-    <h1>bienvenido a la página principal de cursos</h1>
-    <ul>
+    <h1 class="my-5">bienvenido a la página principal de cursos</h1>
+    <a 
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+        href="{{ route('cursos.create') }}">
+        Crear curso
+    </a>
+    <ul class="my-5">
         @foreach ($cursos as $curso)
-            <li>{{ $curso->name }}</li>
+            <li>
+                <a href="{{ route('cursos.show', $curso->id) }}">{{ $curso->name }}</a>
+            </li>
         @endforeach
     </ul>
 

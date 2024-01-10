@@ -13,8 +13,8 @@
     <!-- header -->
     <!-- nav -->
    
-
-    @yield('content')
+    <!-- container -->
+    @yield('content')    
 
     <!-- footer -->
 
