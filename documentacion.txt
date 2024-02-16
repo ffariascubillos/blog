@@ -203,3 +203,70 @@ Las factories te permiten definir patrones para generar datos aleatorios y luego
 
 La lectura y listado de registros es una tarea fundamental en el desarrollo de aplicaciones web. En el decimocuarto capítulo del curso "Laravel desde cero", aprenderás a listar y leer registros en Laravel utilizando la función all, find, findOrFail y where. La función all te permite recuperar todos los registros de una tabla, mientras que la función find te permite recuperar un registro específico en función de su ID. La función findOrFail te permite recuperar un registro específico en función de su ID, pero lanzará una excepción si no se encuentra el registro. La función where te permite recuperar un conjunto de registros que cumplen una determinada condición. Además, en este capítulo, también aprenderás a utilizar la paginación para listar registros de manera eficiente y cómo realizar búsquedas utilizando la función where en combinación con la paginación. Con estos conocimientos, podrás listar y leer registros de manera efectiva y eficiente en tus aplicaciones Laravel.
 
+17. C+omo generar un Dominio local (virtual host) con Windows y XAMPP
+
+18. Cómo agregar y actualizar registros desde un formulario
+Agregar y actualizar registros desde un formulario es una tarea común en el desarrollo de aplicaciones web con Laravel. Aprenderás a utilizar la función create y update, respectivamente, para agregar y actualizar registros en la base de datos. La función create te permite agregar un nuevo registro a una tabla utilizando los valores proporcionados por el usuario en un formulario, mientras que la función update te permite actualizar un registro existente en función de su ID utilizando los valores proporcionados por el usuario en un formulario. Aprenderás a utilizar el método fill para actualizar los valores de un registro de manera segura y a validar los datos del formulario antes de agregar o actualizar un registro. También conocerás cómo utilizar la función redirect para redirigir al usuario a una página específica después de agregar o actualizar un registro. Con estos conocimientos, podrás agregar y actualizar registros de manera segura y eficiente en tus aplicaciones web desarrolladas en Laravel.
+
+
+19. Cómo validar formularios en Laravel
+La validación de formularios es una tarea importante para garantizar la integridad y la calidad de los datos ingresados por el usuario. En Laravel, puedes validar fácilmente los datos de un formulario utilizando la clase Validator. En el decimosexto capítulo del curso Laravel desde cero, aprenderás a utilizar esta clase para validar los datos ingresados en un formulario. Aprenderás a definir reglas de validación para cada campo del formulario, como requerido, longitud máxima, longitud mínima, formato de correo electrónico y más. También aprenderás a personalizar los mensajes de error y a mostrarlos en la vista. Además, conocerás cómo utilizar la función old para mostrar los datos ingresados por el usuario en caso de un error de validación. Con estos conocimientos, podrás validar los datos de los formularios de manera eficiente y garantizar la calidad de los datos ingresados por el usuario en tus aplicaciones Laravel.
+
+// instalar paquete de idioma en español
+
+> php artisan lang:publish
+> composer require --dev laravel-lang/common
+> php artisan lang:add es
+
+// ir a la siguiente ruta, y cambiar idioma en la variable default 'en'
+config > app.php = 'locale' -> 'your idiom', 
+
+
+20. Qué son los Form Request
+Los Form Request son clases en Laravel que permiten centralizar la validación de los datos de los formularios en una sola ubicación y mejorar la reutilización del código. En lugar de validar los datos del formulario directamente en el controlador, puedes crear una clase Form Request que encapsule las reglas de validación y la lógica de validación. Los Form Request en Laravel son una forma conveniente de validar los datos del formulario antes de que lleguen al controlador, lo que ayuda a mantener el código organizado y limpio. En el decimoséptimo capítulo del curso "Laravel desde cero", aprenderás a utilizar los Form Request en Laravel para validar los datos del formulario y cómo personalizar los mensajes de error y las reglas de validación en función de las necesidades de tu aplicación. Con estos conocimientos, podrás mejorar la calidad del código de tus aplicaciones Laravel y mantener la validación de los datos del formulario de manera centralizada.
+
+// crear un form Request para el formulario Cursos
+> php artisan make:request StoreCurso
+
+
+21. Qué es asignación masiva
+La asignación masiva (Mass Assignment) en Laravel se refiere a la técnica de asignar valores a múltiples atributos de un modelo de forma simultánea utilizando un solo arreglo de datos. En lugar de asignar los valores uno por uno, puedes usar la asignación masiva para asignar múltiples valores a la vez. Si bien esto es conveniente y ahorra tiempo, también puede ser peligroso ya que puede permitir la asignación de valores a atributos que no deberían ser accesibles para el usuario, como contraseñas o valores de administrador. Para abordar este problema, Laravel proporciona la función fillable y guarded en los modelos para especificar los atributos que pueden ser asignados de forma masiva o los que deben ser protegidos contra la asignación masiva. En el decimoctavo capítulo del curso "Laravel desde cero", aprenderás cómo utilizar la asignación masiva en Laravel y cómo proteger tu aplicación de vulnerabilidades de seguridad relacionadas con la asignación masiva. Con estos conocimientos, podrás utilizar la asignación masiva de manera segura y eficiente en tus aplicaciones Laravel.
+
+
+22. Cómo eliminar un registro de la base de datos
+En Laravel, puedes eliminar un registro de la base de datos utilizando el método delete() en un modelo. El método delete() eliminará el registro correspondiente en la base de datos. Para eliminar un registro específico, primero debes obtener el modelo que representa ese registro. Esto se puede hacer utilizando el método find() en el modelo, que busca un registro por su identificador único en la base de datos. Una vez que tienes el modelo que deseas eliminar, simplemente llamas al método delete() en el modelo.
+
+
+23. Cómo crear rutas con route resource
+En Laravel, puedes crear rutas para un recurso (como un modelo) de manera eficiente utilizando el método route::resource(). Este método crea automáticamente varias rutas para las operaciones CRUD (Create, Read, Update, Delete) de tu recurso, como index, create, store, show, edit, update y destroy. Estas rutas te permiten manejar fácilmente las solicitudes HTTP de tu aplicación y realizar las operaciones CRUD en tu modelo. Para utilizar route::resource(), simplemente debes definir una ruta que apunte a tu controlador y llamar al método route::resource() en esa ruta.
+
+// mostrar listado de rutas de tu proyecto
+> php artisan r:l
+
+// cambiar nombre url -> edit = editar
+// dirigirse a App\Providers\RouteServiceProvider:
+// https://laravel.com/docs/10.x/controllers#main-content
+// pegar el siguiente código dentro del método boot().
+
+Route::resourceVerbs([
+    'create' => 'crear',
+    'edit' => 'editar',
+]);
+
+// Opcional, modificar archivo web.php para cambiar nombre de URL ejemplo de 'cursos' a 'asignaturas'
+
+Route::get('/', HomeController::class )->name('home');
+
+Route::resource('asignaturas', CursoController::class)->parameters(['asignaturas' => 'curso'])->names('cursos');
+
+
+24. Cómo generar url's amigables
+En este capítulo de Laravel, aprenderás a utilizar la función getRouteKeyName para crear URL amigables y fáciles de recordar para tus modelos en Laravel. Con getRouteKeyName, puedes especificar el nombre de un campo de tu modelo para que sea utilizado como clave en lugar del id predeterminado. Esto te permitirá crear URLs más legibles y semánticamente significativas para tus usuarios, lo que a su vez mejorará la experiencia del usuario y el SEO de tu sitio. Aprenderás cómo implementar getRouteKeyName en tu proyecto Laravel y cómo personalizar tus URL utilizando los nombres de campo que mejor se adapten a tus necesidades.
+
+// Agregar en el modelo curso
+// se puede usar el método getRouteKeyName para cambiar el nombre de la ruta
+
+public function getRouteKeyName()
+{
+    return 'slug';
+}
